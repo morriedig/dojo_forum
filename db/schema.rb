@@ -10,12 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_29_080811) do
+ActiveRecord::Schema.define(version: 2018_07_29_101651) do
+
+  create_table "join_posts", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "post_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_category_id"], name: "index_join_posts_on_post_category_id"
+    t.index ["post_id"], name: "index_join_posts_on_post_id"
+  end
 
   create_table "post_categories", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.text "image"
+    t.string "post_state"
+    t.integer "replies_count", default: 0
+    t.integer "user_id"
+    t.integer "post_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_category_id"], name: "index_posts_on_post_category_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.string "content"
+    t.integer "post_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_replies_on_post_id"
+    t.index ["user_id"], name: "index_replies_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

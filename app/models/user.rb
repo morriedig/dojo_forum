@@ -4,7 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-
+  has_many :posts
+  has_many :replies
+  
   def admin?
     return self.role === "admin"
   end

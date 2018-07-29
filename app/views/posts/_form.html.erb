@@ -1,0 +1,14 @@
+<%= form_for @post do |post| %>
+  <%= post.collection_check_boxes :post_category_ids, PostCategory.all, :id, :title %>
+
+  <%= post.label :title, "標題"%>
+  <%= post.text_field :title %>
+
+  <%= post.label :content, "內容" %>
+  <%= post.text_area :content %>
+
+  <%= post.label :image, "圖片" %>
+  <%= post.file_field :image %> <br>
+
+  <%= post.submit%>
+<% end %>

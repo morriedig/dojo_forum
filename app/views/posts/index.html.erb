@@ -1,0 +1,22 @@
+<h1>This is post index</h1>
+
+<%= link_to "新增貼文", new_post_path%>
+
+<ul id="all_post_category">
+  <% @post_categories.each do |post_category| %>
+    <li id= "post_category_<%= post_category.id %>">
+      <%= link_to post_category.title, root_path(category_id: post_category.id), remote: true %>
+    </li>
+  <% end %>
+</ul>
+
+<div id="all_post">
+  <% @posts.each do |post| %>
+    <p>
+      <%= post.inspect %> <br>
+      <% post.post_categories.each do |post_category| %>
+        <%= post_category.title %>
+      <% end %>
+    </p> 
+  <% end %>
+</div>
