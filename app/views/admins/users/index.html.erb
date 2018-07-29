@@ -1,0 +1,10 @@
+<h1> This is user index on backend </h1>
+
+<ul id= "all_user">
+  <% @users.each do |user| %>
+    <li id= "user_<%= user.id %>">
+      <%= render :partial => "admins/users/user_list", :locals => {user: user} %>    
+    </li>
+  <% end %>
+</ul>
+  

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   namespace :admins do
     resources :post_categories
+    resources :users, only: [:index, :show]
+    post "change_role", to: "users#change_role"
 
     root "post_categories#index"
   end
