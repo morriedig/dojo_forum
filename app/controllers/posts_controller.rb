@@ -16,6 +16,7 @@ class PostsController < ApplicationController
 
   def show
     find_post
+    @replies = @post.replies.page(params[:page]).per(20)
   end
 
   def create

@@ -10,7 +10,6 @@
   <%= reply.submit %>
 <% end %>
 <ul id="all_replies">
-  <% @post.replies.each do |reply| %>
-    <%= render :partial => "replies/reply_list", locals: { reply: reply }%>
-  <% end %>
+  <%= render :partial => "replies/all_replies", locals: { replies: @replies }%>
 </ul>
+<%= paginate @replies, remote: true %>
