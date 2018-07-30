@@ -10,5 +10,9 @@
   <%= post.label :image, "圖片" %>
   <%= post.file_field :image %> <br>
 
-  <%= post.submit%>
+  <label> 權限設定 </label>
+  <%= post.select :post_permission, FormSelect.post_permission.map { |cate| [cate.name, cate.key] },{} ,:class => 'form-control'%>
+
+  <%= post.submit "草稿", name: "post[post_state]", value: "draft" %>
+  <%= post.submit "發布", name: "post[post_state]", value: "publish" %>
 <% end %>

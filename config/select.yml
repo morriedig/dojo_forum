@@ -1,0 +1,16 @@
+# config/application.yml
+defaults: &defaults
+  post_permission: [
+    { key: 1, name: '公開' },
+    { key: 2, name: '好友' },
+    { key: 3, name: '限本人' }
+  ]
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
