@@ -11,8 +11,10 @@ Rails.application.routes.draw do
   end
 
   resources :posts do
-    resources :replies
+    resources :replies, only: [:create, :update, :destroy]
   end
+
+  resources :collection_posts, only: [:create]
 
   root "posts#index"
 end

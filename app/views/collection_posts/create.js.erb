@@ -1,0 +1,5 @@
+<% if current_user.collected?(@collection_post.post_id) %>
+  $("#collection_post_<%= @collection_post.post_id %>").text("取消收藏");
+<% else %>
+  $("#collection_post_<%= @collection_post.post_id %>").text("收藏");
+<% end %>

@@ -21,6 +21,7 @@
       <% if post.user_id === current_user.try(:id) %>
         <%= link_to "刪除文章", post_path(post), method: :delete, remote: true %>
       <% end %>
+      <%= link_to post.collected?(current_user.id) , collection_posts_path(post_id: post.id), method: :post, remote: true, id: "collection_post_#{post.id}" %>
     </p>
     
   <% end %>
