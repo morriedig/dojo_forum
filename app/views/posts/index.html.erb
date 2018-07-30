@@ -12,12 +12,16 @@
 
 <div id="all_post">
   <% @posts.each do |post| %>
-    <p>
+    <p id= "post_<%= post.id %>">
       <%= post.inspect %> <br>
       <% post.post_categories.each do |post_category| %>
         <%= post_category.title %>
       <% end %>
+      <%= link_to "詳細", post_path(post) %>
+      <% if post.user_id === current_user.try(:id) %>
+        <%= link_to "刪除文章", post_path(post), method: :delete, remote: true %>
+      <% end %>
     </p>
-    <%= link_to "詳細", post_path(post) %>
+    
   <% end %>
 </div>

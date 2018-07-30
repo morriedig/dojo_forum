@@ -2,7 +2,7 @@
 
 <%= @post.inspect %>
 <%= @post.title %>
-
+<%= link_to "刪除", post_path(id:@post.id, show: true), method: :delete %>
 <%= form_for [@post, Reply.new], remote: true do |reply| %>
   <%= reply.label :content %>
   <%= reply.text_field :content %>

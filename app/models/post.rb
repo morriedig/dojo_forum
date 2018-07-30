@@ -1,9 +1,9 @@
 class Post < ApplicationRecord
   mount_uploader :image, PostUploader
   attr_accessor :post_category_ids
-  has_many :replies, counter_cache: true
+  has_many :replies, dependent: :destroy
   belongs_to :user
-  has_many :join_posts
+  has_many :join_posts, dependent: :destroy
   has_many :post_categories, through: :join_posts
   # accepts_nested_attributes_for :post_categories
 

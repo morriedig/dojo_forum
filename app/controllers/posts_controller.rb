@@ -29,6 +29,14 @@ class PostsController < ApplicationController
     end
     redirect_to posts_path
   end
+
+  def destroy
+    find_post
+    @post.destroy
+    if params[:show]
+      redirect_to root_path
+    end
+  end
   
   private
 
