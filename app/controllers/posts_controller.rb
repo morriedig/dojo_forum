@@ -14,6 +14,10 @@ class PostsController < ApplicationController
     @post = Post.new
   end
 
+  def show
+    find_post
+  end
+
   def create
     # 之後需要寫判斷
     
@@ -26,6 +30,10 @@ class PostsController < ApplicationController
   end
   
   private
+
+  def find_post
+    @post = Post.find(params[:id])
+  end
 
   def post_params
     params.require(:post).permit(:title, :content, :image, :post_state, :post_permission, :user_id, {:post_category_ids => []}, post_categories_attributes: [:title])

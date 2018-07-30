@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     root "post_categories#index"
   end
 
-  resources :posts
+  resources :posts do
+    resources :replies
+  end
 
   root "posts#index"
 end

@@ -17,6 +17,7 @@
       <% post.post_categories.each do |post_category| %>
         <%= post_category.title %>
       <% end %>
-    </p> 
+    </p>
+    <%= link_to "詳細", post_path(post) %>
   <% end %>
 </div>

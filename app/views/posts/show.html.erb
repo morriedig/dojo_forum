@@ -1,0 +1,16 @@
+<h1>this is post show page</h1>
+
+<%= @post.inspect %>
+<%= @post.title %>
+
+<%= form_for [@post, Reply.new], remote: true do |reply| %>
+  <%= reply.label :content %>
+  <%= reply.text_field :content %>
+
+  <%= reply.submit %>
+<% end %>
+<ul id="all_replies">
+  <% @post.replies.each do |reply| %>
+    <%= render :partial => "replies/reply_list", locals: { reply: reply }%>
+  <% end %>
+</ul>
