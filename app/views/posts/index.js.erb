@@ -1,0 +1,7 @@
+<% if @post_category %>
+  $("#post<%= @post_category.id %>").html("<%=j render :partial => 'posts/post_lists', locals: {posts: @posts, category_id: @post_category.id} %>")
+  $('#paginator').html('<%= escape_javascript(paginate(@posts, :remote=>true).to_s)%>');
+<% else %>
+  $("#all").html("<%=j render :partial => 'posts/post_lists', locals: {posts: @posts,category_id: nil } %>")
+  $('#paginator').html('<%= escape_javascript(paginate(@posts, :remote=>true).to_s)%>');
+<% end %>

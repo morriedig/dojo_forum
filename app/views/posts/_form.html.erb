@@ -1,5 +1,9 @@
 <%= form_for @post do |post| %>
-  <%= post.collection_check_boxes :post_category_ids, PostCategory.all, :id, :title %>
+
+  <% PostCategory.all.each do | post_category | %>
+    <%= check_box_tag "post[post_category_ids][]", post_category.id, @post.post_categories.include?(post_category),id: "category_#{post_category.id}" %>
+    <%= label_tag "category_#{ post_category.id}", post_category.title %>
+  <% end %>
 
   <%= post.label :title, "標題"%>
   <%= post.text_field :title %>

@@ -1,0 +1,13 @@
+<p id= "post_<%= post.id %>">
+  <%= post.inspect %> <br>
+  <% post.post_categories.each do |post_category| %>
+    <%= post_category.title %>
+  <% end %>
+  <%= link_to "詳細", post_path(post) %>
+  <% if post.user_id === current_user.try(:id) %>
+    <%= link_to "編輯", edit_post_path(post) %>
+    <%= link_to "刪除文章", post_path(post), method: :delete, remote: true %>
+  <% end %>
+  <%= link_to post.collected?(current_user.try(:id)) , collection_posts_path(post_id: post.id), method: :post, remote: true, id: "collection_post_#{post.id}" %> <br>
+  <%= link_to post.user.nickname, user_path(post.user_id) %>
+</p>

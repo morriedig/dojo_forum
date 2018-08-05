@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
   mount_uploader :image, PostUploader
-  attr_accessor :post_category_ids
+  # serialize :post_category_ids
   belongs_to :user, counter_cache: true
   has_many :replies, dependent: :destroy
   has_many :join_posts, dependent: :destroy
