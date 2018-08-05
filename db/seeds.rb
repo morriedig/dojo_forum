@@ -8,3 +8,5 @@
 User.destroy_all
 User.create(email: "admin@example.com", password: "12345678", role: "admin", nickname: "Default Admin")
 User.create(email: "morrie@example.com", password: "12345678", role: "admin", nickname: "Default Morrie")
+User.create(email: "morrie2@example.com", password: "12345678", role: "admin", nickname: "Default Morrie2")
+User.create(email: "morrie3@example.com", password: "12345678", role: "admin", nickname: "Default Morrie3")

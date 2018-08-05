@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   end
 
   resources :collection_posts, only: [:create]
+  resources :users, only: [:show, :index]
+  post "friend_ship", to: "users#friend_ship"
 
   root "posts#index"
 end

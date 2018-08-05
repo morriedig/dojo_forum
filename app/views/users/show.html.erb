@@ -1,0 +1,5 @@
+<h1>this is user page</h1>
+
+<%= link_to current_user.friend?(@user), friend_ship_path(id:@user.id),method: :post, remote: true, id: "friend_#{ @user.id }" %>
+<br>
+<%= current_user.all_friends.inspect %>
