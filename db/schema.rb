@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_30_174811) do
+ActiveRecord::Schema.define(version: 2018_08_04_084038) do
 
   create_table "collection_posts", force: :cascade do |t|
     t.integer "user_id"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2018_07_30_174811) do
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_collection_posts_on_post_id"
     t.index ["user_id"], name: "index_collection_posts_on_user_id"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
+    t.string "friend_state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
   create_table "join_posts", force: :cascade do |t|
@@ -43,11 +52,10 @@ ActiveRecord::Schema.define(version: 2018_07_30_174811) do
     t.string "post_state"
     t.integer "replies_count", default: 0
     t.integer "user_id"
-    t.integer "post_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "post_permission"
-    t.index ["post_category_id"], name: "index_posts_on_post_category_id"
+    t.text "post_category_ids"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
