@@ -1,4 +1,6 @@
-<li id="post_category_<%= post_category.id %>">
-  <%= post_category.title %>
-  <%= link_to "刪除類別", admins_post_category_path(post_category), method: :delete, remote: true %>
-</li>
+<tr id="post_category_<%= post_category.id %>">
+  <th scope="row"><%= post_category.id%></th>
+  <td><%= post_category.title %></td>
+  <td><%= post_category.posts.size%></td>
+  <td><%= link_to "刪除類別", admins_post_category_path(post_category), method: :delete, remote: true %></td>
+</tr>

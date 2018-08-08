@@ -1,13 +1,52 @@
-<h1>This is post_category page</h1>
+<div class="backend container">
+  <h1>後台管理</h1>
+  <div class="content">
+    <div class="all_category">
+      <h3> 類別管理 </h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">編號</th>
+            <th scope="col">分類名稱</th>
+            <th scope="col">文章數量</th>
+            <th scope="col">刪除分類</th>
+          </tr>
+        </thead>
+        <tbody id= "all_post_category">
+          <% @post_categories.each do |post_category| %>
+            <%= render :partial => "admins/post_categories/category_list", locals: {post_category: post_category} %>          
+          <% end %>
+        </tbody>
+      </table>
 
-<%= form_for [:admins, @post_category], remote: true do |f| %>
-  <%= f.label :title, "文章分類" %>
-  <%= f.text_field :title %>
-  <%= f.submit %>
-<% end %>
+      <%= form_for [:admins, @post_category], html: { class: "form-inline", remote: true} do |f| %>
+        <%= f.label :title, "新增文章分類", class: "my-1 mr-2" %>
+        <%= f.text_field :title, class: "form-control mb-2 mr-sm-2" %>
+        <%= f.submit "送出" ,class:"btn btn-primary mb-2" %>
+      <% end %>
+    </div>
 
-<ul id= "all_post_category">
-  <% @post_categories.each do |post_category| %>
-    <%= render :partial => "admins/post_categories/category_list", locals: {post_category: post_category} %>
-  <% end %>
-</ul>
+    <div class="all_user">
+      <h3>使用者管理</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">編號</th>
+            <th scope="col">使用者暱稱</th>
+            <th scope="col">信箱</th>
+            <th scope="col">權限</th>
+            <th scope="col">變更權限</th>
+          </tr>
+        </thead>
+        <tbody id= "all_user">
+          <% @users.each do |user| %>
+            <tr id= "user_<%= user.id %>">
+              <%= render :partial => "admins/users/user_list", :locals => {user: user} %>    
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

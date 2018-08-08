@@ -5,6 +5,7 @@ class Admins::PostCategoriesController < ApplicationController
   def index
     @post_categories = PostCategory.all
     @post_category = PostCategory.new
+    @users = User.all
   end
 
   def create
