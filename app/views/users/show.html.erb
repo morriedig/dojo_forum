@@ -1,5 +1,66 @@
-<h1>this is user page</h1>
+<div id="user-show">
+  <div class="body">
+    <div class="top">
+      <div class="top_right">
+        <%= image_tag( @user.image.thumb.url, height: "200" ) if @user.image.present? %>
+      </div>
+      <div class="top_left">
+        <%= simple_format @user.intro %>
+      </div>
+    </div>
 
-<%= link_to current_user.friend?(@user), friend_ship_path(id:@user.id),method: :post, remote: true, id: "friend_#{ @user.id }" %>
-<br>
-<%= current_user.all_friends.inspect %>
+    <div class="content_nav">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="post-tab" data-toggle="tab" href="#post" role="tab" aria-controls="post" aria-selected="true">分佈文章</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="reply-tab" data-toggle="tab" href="#reply" role="tab" aria-controls="reply" aria-selected="false">我的留言</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="collection-tab" data-toggle="tab" href="#collection" role="tab" aria-controls="collection" aria-selected="false">collection</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="content">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="post" role="tabpanel" aria-labelledby="post-tab">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">文章名稱</th>
+                <th scope="col">文章狀態</th>
+                <th scope="col">留言數</th>
+                <th scope="col">瀏覽數</th>
+                <th scope="col">建立時間</th>
+                <th scope="col">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @user.posts.each do |post| %>
+                <%= render :partial => "users/post_list", locals: {post: post} %>
+              <% end %>
+            </tbody>
+          </table>
+          
+        </div>
+        <div class="tab-pane fade" id="reply" role="tabpanel" aria-labelledby="reply-tab">
+          <% @user.replies.each do |reply| %>
+            <%= render :partial => "users/reply_list", locals: { reply: reply }%>
+          <% end %>
+        </div>
+        <div class="tab-pane fade" id="collection" role="tabpanel" aria-labelledby="collection-tab">
+          <%= @user.love_posts.each do |post| %>
+            <%= render :partial => 'users/love_list', locals: { post: post } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <%= link_to current_user.friend?(@user), friend_ship_path(id:@user.id),method: :post, remote: true, id: "friend_#{ @user.id }" %>
+    <br>
+    <%= current_user.all_friends.inspect %>
+  </div>
+</div>
+

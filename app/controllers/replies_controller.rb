@@ -12,6 +12,16 @@ class RepliesController < ApplicationController
     @reply.destroy
   end
 
+  def edit
+    @reply = Reply.find(params[:id])
+  end
+
+  def update
+    @reply = Reply.find(params[:id])
+    @reply.update(reply_params)
+  end
+  
+
   private
 
   def reply_params

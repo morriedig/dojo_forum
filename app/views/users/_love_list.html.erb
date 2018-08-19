@@ -1,0 +1,13 @@
+<div id="love_post_<%= post.id %>" class="row">
+  <div class="col-3">
+    <%= post.title %>
+  </div>
+
+  <div class="col-2">
+    <%= post.user.name %>
+  </div>
+
+  <div>
+    <%= link_to "刪除", collection_posts_path( post_id: post.id )%>
+  </div>
+</div>
