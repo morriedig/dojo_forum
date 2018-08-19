@@ -5,12 +5,12 @@ class PostsController < ApplicationController
     @post_categories = PostCategory.all
     if params[:category_id]
       @post_category = PostCategory.find(params[:category_id])
-      @posts = @post_category.posts.page(params[:page]).per(1)
+      instance_variable_set("@post#{@post_category.id}", @post_category.posts.page(params[:page]).per(20) )
     else
       @post_categories.each do | post_category |
-        instance_variable_set("@post#{post_category.id}",post_category.posts.page(params[:page]).per(1) )
+        instance_variable_set("@post#{post_category.id}",post_category.posts.page(params[:page]).per(20) )
       end
-      @posts = Post.page(params[:page]).per(1)
+      @posts = Post.all.page(params[:page]).per(20)
     end
   end
 
@@ -20,6 +20,7 @@ class PostsController < ApplicationController
 
   def show
     find_post
+    @post.add_viewed
     @replies = @post.replies.page(params[:page]).per(20)
   end
 

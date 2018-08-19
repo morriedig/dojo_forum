@@ -1,6 +1,8 @@
 class Post < ApplicationRecord
   mount_uploader :image, PostUploader
   # serialize :post_category_ids
+  default_scope {order( created_at: :asc )}
+  scope :most_viewed, -> { order( viewed_num: :desc ) }
   belongs_to :user, counter_cache: true
   has_many :replies, dependent: :destroy
   has_many :join_posts, dependent: :destroy
@@ -17,5 +19,18 @@ class Post < ApplicationRecord
 
   def collected?(user_id)
     self.collection_posts.pluck(:user_id).include?(user_id) ? "取消收藏" : "收藏"
+  end
+
+  def latest_reply
+    if self.replies.present?
+      return self.replies.last.created_at.strftime("%Y-%m-%m")
+    else
+      return "-"
+    end
+  end
+
+  def add_viewed
+    self.viewed_num = self.viewed_num + 1
+    self.save
   end
 end

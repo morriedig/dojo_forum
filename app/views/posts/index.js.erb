@@ -1,7 +1,7 @@
 <% if @post_category %>
-  $("#post<%= @post_category.id %>").html("<%=j render :partial => 'posts/post_lists', locals: {posts: @posts, category_id: @post_category.id} %>")
-  $('#paginator').html('<%= escape_javascript(paginate(@posts, :remote=>true).to_s)%>');
+  $("#posts<%= @post_category.id %>").html("<%=j render :partial => 'posts/post_lists', locals: {posts: instance_variable_get("@post#{@post_category.id}"), post_category: @post_category} %>")
+  $('#paginator').html('<%= escape_javascript(paginate(instance_variable_get("@post#{@post_category.id}"), :remote=>true).to_s)%>');
 <% else %>
-  $("#all").html("<%=j render :partial => 'posts/post_lists', locals: {posts: @posts,category_id: nil } %>")
+  $("#all").html("<%=j render :partial => 'posts/post_lists', locals: {posts: @posts, post_category: nil } %>")
   $('#paginator').html('<%= escape_javascript(paginate(@posts, :remote=>true).to_s)%>');
 <% end %>

@@ -1,22 +1,35 @@
 <%= form_for @post do |post| %>
-
+  <label> 文章類別 </label> <br>
   <% PostCategory.all.each do | post_category | %>
-    <%= check_box_tag "post[post_category_ids][]", post_category.id, @post.post_categories.include?(post_category),id: "category_#{post_category.id}" %>
-    <%= label_tag "category_#{ post_category.id}", post_category.title %>
+    <div class="form-check form-check-inline">
+      <%= check_box_tag "post[post_category_ids][]", post_category.id, @post.post_categories.include?(post_category),id: "category_#{post_category.id}", class: "form-check-input" %>
+      <%= label_tag "category_#{ post_category.id}", post_category.title, class: "form-check-label" %>
+    </div>
   <% end %>
 
-  <%= post.label :title, "標題"%>
-  <%= post.text_field :title %>
+  <div class="form-group">
+    <%= post.label :title, "標題"%>
+    <%= post.text_field :title, class: "form-control" %>
+  </div>
 
-  <%= post.label :content, "內容" %>
-  <%= post.text_area :content %>
+  <div class="form-group">
+    <%= post.label :content, "內容"%>
+    <%= post.text_area :content, rows: "5", class: "form-control" %>
+  </div>
 
-  <%= post.label :image, "圖片" %>
-  <%= post.file_field :image %> <br>
+  <div class="form-group">
+    <%= post.label :image, "圖片" %> <br>
+    <%= post.file_field :image %> <br>
+    <%= image_tag( @post.image.thumb.url, height: "200" ) if @post.image.present? %>
+  </div>
 
-  <label> 權限設定 </label>
-  <%= post.select :post_permission, FormSelect.post_permission.map { |cate| [cate.name, cate.key] },{} ,:class => 'form-control'%>
+  <div class="form-group">
+    <%= post.label :post_permission, "權限設定" %>
+    <%= post.select :post_permission, FormSelect.post_permission.map { |cate| [cate.name, cate.key] },{} ,:class => 'form-control'%>
+  </div>
 
-  <%= post.submit "草稿", name: "post[post_state]", value: "draft" %>
-  <%= post.submit "發布", name: "post[post_state]", value: "publish" %>
+  <div class="form-group">
+    <%= post.submit "草稿", name: "post[post_state]", value: "draft", class: "btn btn-secondary" %>
+    <%= post.submit "發布", name: "post[post_state]", value: "publish", class: "btn btn-primary" %>  
+  </div>
 <% end %>

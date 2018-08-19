@@ -1,13 +1,23 @@
-<p id= "post_<%= post.id %>">
-  <%= post.inspect %> <br>
-  <% post.post_categories.each do |post_category| %>
-    <%= post_category.title %>
-  <% end %>
-  <%= link_to "詳細", post_path(post) %>
-  <% if post.user_id === current_user.try(:id) %>
-    <%= link_to "編輯", edit_post_path(post) %>
-    <%= link_to "刪除文章", post_path(post), method: :delete, remote: true %>
-  <% end %>
-  <%= link_to post.collected?(current_user.try(:id)) , collection_posts_path(post_id: post.id), method: :post, remote: true, id: "collection_post_#{post.id}" %> <br>
-  <%= link_to post.user.nickname, user_path(post.user_id) %>
-</p>
+<div id= "post_<%= post.id %>" class="col-12 row post">
+  <div class="post_left col-4">
+      <%= image_tag(post.image.thumb.url) if post.image.present? %>
+  </div>
+
+  <div class="post_right col-8">
+    <div class="post_right_top">
+      <%= post.title %> - <%= link_to post.user.nickname, user_path(post.user) %> 
+        <% if post.user_id === current_user.try(:id) %>
+          <%= link_to "編輯", edit_post_path(post) %> | 
+          <%= link_to "刪除文章", post_path(post), method: :delete, remote: true %> | 
+        <% end %>   
+          <%= link_to post.collected?(current_user.try(:id)) , collection_posts_path(post_id: post.id), method: :post, remote: true, id: "collection_post_#{post.id}" %> <br>
+    </div>
+    <div class="post_right_content">
+      <%= simple_format post.content %>
+    </div>
+    <div class="post_right_bot">
+      <%= link_to "閱讀更多", post_path(post)  %> <br>
+      <span class= "reply_count">留言數：<%= post.replies_count %></span> | 最新留言時間：<%= post.latest_reply %>
+    </div>
+  </div>
+</div>

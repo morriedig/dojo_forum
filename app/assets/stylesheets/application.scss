@@ -13,3 +13,30 @@
  */
 
  @import "bootstrap";
+ @import "admins/post_categories";
+ // header
+#header{
+  position: absolute;
+  top:0;
+  height: 40px;
+  .header{
+    width: 1024px;
+    margin:0 auto;
+    > * {
+      display: inline-block;
+      margin-top: 8px;
+    }
+    nav{
+      float: right;
+    }
+    ul {
+     list-style: none;
+     li{
+       display: inline-block;
+     }
+    }
+  }
+}
+
+@import "posts";
+@import "users";

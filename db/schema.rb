@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_04_084038) do
+ActiveRecord::Schema.define(version: 2018_08_19_123009) do
 
   create_table "collection_posts", force: :cascade do |t|
     t.integer "user_id"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2018_08_04_084038) do
     t.datetime "updated_at", null: false
     t.integer "post_permission"
     t.text "post_category_ids"
+    t.integer "viewed_num", default: 0
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -86,6 +87,7 @@ ActiveRecord::Schema.define(version: 2018_08_04_084038) do
     t.string "nickname"
     t.integer "replies_count", default: 0
     t.integer "posts_count", default: 0
+    t.text "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

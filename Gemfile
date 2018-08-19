@@ -66,3 +66,4 @@ gem 'kaminari'
 gem 'carrierwave', '~> 1.0'
 gem 'settingslogic'
 gem 'bootstrap', '~> 4.1.3'
+gem "mini_magick"
