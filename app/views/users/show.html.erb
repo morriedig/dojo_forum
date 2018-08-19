@@ -18,7 +18,13 @@
           <a class="nav-link" id="reply-tab" data-toggle="tab" href="#reply" role="tab" aria-controls="reply" aria-selected="false">我的留言</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="collection-tab" data-toggle="tab" href="#collection" role="tab" aria-controls="collection" aria-selected="false">collection</a>
+          <a class="nav-link" id="collection-tab" data-toggle="tab" href="#collection" role="tab" aria-controls="collection" aria-selected="false">收藏文章</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="draft-tab" data-toggle="tab" href="#draft" role="tab" aria-controls="draft" aria-selected="false">未發佈文章</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="myfriend-tab" data-toggle="tab" href="#myfriend" role="tab" aria-controls="myfriend" aria-selected="false">好友</a>
         </li>
       </ul>
     </div>
@@ -43,7 +49,6 @@
               <% end %>
             </tbody>
           </table>
-          
         </div>
         <div class="tab-pane fade" id="reply" role="tabpanel" aria-labelledby="reply-tab">
           <% @user.replies.each do |reply| %>
@@ -51,7 +56,31 @@
           <% end %>
         </div>
         <div class="tab-pane fade" id="collection" role="tabpanel" aria-labelledby="collection-tab">
-          <%= @user.love_posts.each do |post| %>
+          <% @user.love_posts.each do |post| %>
+            <%= render :partial => 'users/love_list', locals: { post: post } %>
+          <% end %>
+        </div>
+        <div class="tab-pane fade" id="draft" role="tabpanel" aria-labelledby="draft-tab">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">文章名稱</th>
+                <th scope="col">文章狀態</th>
+                <th scope="col">留言數</th>
+                <th scope="col">瀏覽數</th>
+                <th scope="col">建立時間</th>
+                <th scope="col">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @user.posts.draft.each do |post| %>
+                <%= render :partial => 'users/post_list', locals: { post: post } %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="myfriend" role="tabpanel" aria-labelledby="myfriend-tab">
+          <% @user.love_posts.each do |post| %>
             <%= render :partial => 'users/love_list', locals: { post: post } %>
           <% end %>
         </div>

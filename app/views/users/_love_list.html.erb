@@ -8,6 +8,6 @@
   </div>
 
   <div>
-    <%= link_to "刪除", collection_posts_path( post_id: post.id )%>
+    <%= link_to "刪除", collection_post_path(current_user.collections.find_by(post_id: post.id)), method: :delete, remote: true %>
   </div>
 </div>

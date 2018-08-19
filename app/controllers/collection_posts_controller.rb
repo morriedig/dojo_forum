@@ -8,5 +8,11 @@ class CollectionPostsController < ApplicationController
       @collection_post = current_user.collection_posts.create(post_id: params[:post_id])
     end
   end
+
+  def destroy
+    @collection_post.find(params[:id])
+    @collection_post.destroy
+  end
+  
   
 end
