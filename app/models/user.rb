@@ -71,8 +71,7 @@ class User < ApplicationRecord
       end
     else
       # 如果還沒有成為朋友
-      puts "why !!!!!!!!!"
-      return "Add friend"
+      return "加入好友"
     end
   end
 
