@@ -10,7 +10,7 @@ class PostsController < ApplicationController
       @post_categories.each do | post_category |
         instance_variable_set("@post#{post_category.id}",post_category.posts.page(params[:page]).per(20) )
       end
-      @posts = Post.all.page(params[:page]).per(20)
+      @posts = Post.includes(:replies).published.page(params[:page]).per(20)
     end
   end
 

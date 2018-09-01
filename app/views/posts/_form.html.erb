@@ -19,7 +19,7 @@
 
   <div class="form-group">
     <%= post.label :image, "圖片" %> <br>
-    <%= post.file_field :image %> <br>
+    <%= post.file_field :image %> <br> <br>
     <%= image_tag( @post.image.thumb.url, height: "200" ) if @post.image.present? %>
   </div>
 

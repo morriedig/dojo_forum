@@ -1,1 +1,1 @@
-$("#friend_<%= @friendship.friend_id %>").text("<%= current_user.friend?(@user) %>");
+$("#friend_<%= @friend.id %>").html("<%= current_user.friend?(@user) %>");

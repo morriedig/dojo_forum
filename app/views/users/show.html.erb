@@ -3,9 +3,17 @@
     <div class="top">
       <div class="top_right">
         <%= image_tag( @user.image.thumb.url, height: "200" ) if @user.image.present? %>
+        <%= @user.nickname %>
       </div>
       <div class="top_left">
         <%= simple_format @user.intro %>
+        <p>this block is user intro</p>
+        <% if current_user == @user %>
+          <a href="#">編輯</a>
+        <% else %>
+          <%# 回傳好友的id %>
+          <%= link_to current_user.friend?(@user), friend_ship_path(id:@user.id),method: :post, remote: true, id: "friend_#{ @user.id }" %>
+        <% end %>
       </div>
     </div>
 
@@ -44,7 +52,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @user.posts.each do |post| %>
+              <% @user.had_published_post.each do |post| %>
                 <%= render :partial => "users/post_list", locals: {post: post} %>
               <% end %>
             </tbody>
@@ -80,16 +88,32 @@
           </table>
         </div>
         <div class="tab-pane fade" id="myfriend" role="tabpanel" aria-labelledby="myfriend-tab">
-          <% @user.love_posts.each do |post| %>
-            <%= render :partial => 'users/love_list', locals: { post: post } %>
-          <% end %>
+          <h3>好友列表</h3>
+          <%# if current_user == @user %>
+            <div>
+              <h6>等待回覆</h6>
+              <% @user.waiting_response.each do |friend| %>
+                <%= render :partial => 'users/friend_list', locals: { friend: friend } %>
+              <% end %>
+            </div>
+            <div>
+              <h6>回覆</h6>
+              <% @user.please_response.each do |friend| %>
+                <%= render :partial => 'users/friend_list', locals: { friend: friend } %>
+              <% end %>
+            </div>
+          <%# end %>
+          <div>
+            <h6>好友</h6>
+            <% @user.friended.each do |friend| %>
+              <%= render :partial => 'users/friend_list', locals: { friend: friend } %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
 
-    <%= link_to current_user.friend?(@user), friend_ship_path(id:@user.id),method: :post, remote: true, id: "friend_#{ @user.id }" %>
     <br>
-    <%= current_user.all_friends.inspect %>
   </div>
 </div>
 

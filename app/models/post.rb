@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   default_scope {order( created_at: :asc )}
   scope :most_viewed, -> { order( viewed_num: :desc ) }
   scope :draft, -> { where( "post_state == 'draft'") }
+  scope :published, -> { where( "post_state == 'publish'") }
   belongs_to :user, counter_cache: true
   has_many :replies, dependent: :destroy
   has_many :join_posts, dependent: :destroy
@@ -23,15 +24,12 @@ class Post < ApplicationRecord
   end
 
   def latest_reply
-    if self.replies.present?
-      return self.replies.last.created_at.strftime("%Y-%m-%m")
-    else
-      return "-"
-    end
+    self.replies.present? ? self.replies.last.created_at.strftime("%Y-%m-%m") : "尚無留言"
   end
 
   def add_viewed
     self.viewed_num = self.viewed_num + 1
     self.save
   end
+
 end

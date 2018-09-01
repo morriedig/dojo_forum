@@ -1,0 +1,5 @@
+<div id="friend_<%= friend.id %>">
+  <%= image_tag(friend.image.url) if friend.image.present? %>
+  <%= friend.nickname %>
+  <%= current_user.friend?(friend) %>
+</div>
