@@ -1,5 +1,8 @@
-<div id="friend_<%= friend.id %>">
-  <%= image_tag(friend.image.url) if friend.image.present? %>
-  <%= friend.nickname %>
-  <%= current_user.friend?(friend) %>
+<div id="friend_<%= friend.id %>" class="friend_list">
+  <img src="" style="background-image: url('<%= asset_path(friend.image.thumb.url) if friend.image.present? %>')" alt="">
+  <%#= image_tag(friend.image.url) if friend.image.present? %>
+  <p>
+    <%= friend.nickname %>  
+  </p>
+  <%#= current_user.friend?(friend) %>
 </div>

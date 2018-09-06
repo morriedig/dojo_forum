@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :replies, only: [:create, :update, :destroy, :edit ]
 
   resources :collection_posts, only: [:create, :destroy]
-  resources :users, only: [:show, :index]
+  resources :users, only: [:show, :index, :edit, :update]
   post "friend_ship", to: "users#friend_ship"
 
   root "posts#index"

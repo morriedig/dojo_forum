@@ -9,26 +9,118 @@
     width: 1024px;
     margin: 0 auto;
 
-    .content{
-      
-      .reply_content{
-        height: 100px;
-        border: 2px solid black;
-        border-radius: 8px;
-        margin-left: 15px;
-        margin-bottom: 30px;
+    .top{
+      margin-top: 80px;
+      margin-bottom: 50px;
+
+      .top_right{
+        p{
+          margin-top: 15px;
+          display: block;
+        }
+        
+        img{
+          display: block;
+          height: 100px;
+          width: 100px;
+        }
       }
 
-      .reply_link{
-        position: relative;
+      .top_left{
+        background: #fff;
 
-        > p{
+        a{
           display: block;
-          position: absolute;
-          bottom:0;
-          margin:0;
+          text-align: right;
+          padding-right: 30px;
         }
       }
     }
+
+    .content{
+      width: 960px;
+      margin: 30px auto;
+
+      .table thead th{
+        border-bottom: none;
+      }
+
+      .table th, .table td{
+        border-top: none;
+      }
+
+      #reply{
+
+        .reply_block{
+          margin-bottom: 12px;
+          width: 760px;
+          margin: 12px auto;
+        }
+
+        .reply_content{
+          height: 100px;
+          border: 1px solid black;
+          border-radius: 8px;
+          padding: 8px;
+          margin-left: 15px;
+        }
+  
+        .reply_link{
+          position: relative;
+  
+          > p{
+            display: block;
+            position: absolute;
+            bottom:0;
+            margin:0;
+          }
+        }
+      }
+
+      #collection{
+
+        .collection_head{
+          margin: 18px 0;
+        }
+        .love_post_list{
+          margin-bottom: 5px;
+        }
+      }
+
+      #myfriend{
+        padding: 5px;
+
+        > div h6{
+          text-align: center;
+          padding-top: 13px;
+        }
+
+        .friend_list{
+          display: inline-block;
+          width: 200px;
+          text-align: center;
+          img{
+            display: block;
+            height: 80px;
+            width: 80px;
+            margin: 5px auto;
+            border: 1px solid black;
+          }
+        }
+
+        .waiting_response{
+          background:#ccc;
+        }
+      }
+    }
+  }
+}
+
+.devise_view{
+  margin-top: 40px;
+
+  > div{
+    width: 760px;
+    margin: 30px auto;
   }
 }

@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :reverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
   has_many :reverse_friends, through: :reverse_friendships, source: :user
 
+  mount_uploader :image, UserUploader
   # friend_state 有兩個 state -> inviting, friend
   # scope :friend, -> { where( "friend_state == 'draft'") }
 

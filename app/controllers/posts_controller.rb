@@ -2,15 +2,15 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: :index
 
   def index
-    @post_categories = PostCategory.all
+    @post_categories = PostCategory.includes(:posts, :posts => [:user, :replies, :post_categories])
     if params[:category_id]
-      @post_category = PostCategory.find(params[:category_id])
+      @post_category = PostCategory.includes(:posts => [:user] ).find(params[:category_id])
       instance_variable_set("@post#{@post_category.id}", @post_category.posts.page(params[:page]).per(20) )
     else
-      @post_categories.each do | post_category |
+      @post_categories.includes(:posts, :posts => [:user, :replies, :post_categories]).each do | post_category |
         instance_variable_set("@post#{post_category.id}",post_category.posts.page(params[:page]).per(20) )
       end
-      @posts = Post.includes(:replies).published.page(params[:page]).per(20)
+      @posts = Post.includes(:user, :post_categories , :replies ).published.page(params[:page]).per(20)
     end
   end
 
@@ -19,7 +19,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    find_post
+    @post = Post.includes(:replies).find(params[:id])
     @post.add_viewed
     @replies = @post.replies.page(params[:page]).per(20)
   end

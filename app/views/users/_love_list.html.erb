@@ -1,13 +1,9 @@
-<div id="love_post_<%= post.id %>" class="row">
-  <div class="col-3">
+<div id="love_post_<%= post.id %>" class="row love_post_list">
+  <div class="col-4 offset-md-1">
     <%= post.title %>
   </div>
 
-  <div class="col-2">
-    <%= post.user.name %>
-  </div>
-
-  <div>
-    <%= link_to "刪除", collection_post_path(current_user.collections.find_by(post_id: post.id)), method: :delete, remote: true %>
+  <div class="col-3 offset-md-3">
+    <%= link_to "取消收藏", collection_post_path(current_user.collection_posts.find_by(post_id: post.id)), method: :delete, remote: true %>
   </div>
 </div>
