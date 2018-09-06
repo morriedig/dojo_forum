@@ -18,6 +18,10 @@ class User < ApplicationRecord
   # friend_state 有兩個 state -> inviting, friend
   # scope :friend, -> { where( "friend_state == 'draft'") }
 
+  def generate_authentication_token
+    self.authentication_token = Devise.friendly_token
+  end
+
   def admin?
     return self.role === "admin"
   end
@@ -61,7 +65,6 @@ class User < ApplicationRecord
     if self.all_friends.include?(friend)
       # 如果 self 是在等待回應
       if self.waiting_response.include?(friend)
-        puts "============================"
         return "取消邀請"
       elsif self.please_response.include?(friend)
         return "確認"
