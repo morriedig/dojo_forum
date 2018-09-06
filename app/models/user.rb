@@ -27,12 +27,17 @@ class User < ApplicationRecord
   end
 
   def collected?(post_id)
-    self.collection_posts.pluck(:post_id).include?(post_id)
+    collection_posts.pluck(:post_id).include?(post_id)
   end
 
   # 已分佈的文章
   def had_published_post
-    self.posts.published
+    posts.published
+  end
+
+  #  未發度文章 
+  def not_published_post
+    posts.draft
   end
 
   def all_friends

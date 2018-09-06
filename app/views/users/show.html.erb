@@ -9,7 +9,7 @@
         <div class="top_left col-8">
           <%= simple_format @user.intro %>
           <p>this block is user intro</p>
-          <% if current_user == @user %>
+          <% if is_self?(current_user) %>
             <%= link_to "編輯", edit_user_path %>
           <% else %>
             <%# 回傳好友的id %>
@@ -53,16 +53,12 @@
                 </tr>
               </thead>
               <tbody>
-                <% @user.had_published_post.each do |post| %>
-                  <%= render :partial => "users/post_list", locals: {post: post} %>
-                <% end %>
+                <%= render :partial => "users/post_list", :collection => @user.had_published_post , :as => :post %>
               </tbody>
             </table>
           </div>
           <div class="tab-pane fade" id="reply" role="tabpanel" aria-labelledby="reply-tab">
-            <% @user.replies.each do |reply| %>
-              <%= render :partial => "users/reply_list", locals: { reply: reply }%>
-            <% end %>
+            <%= render :partial => "users/reply_list", :collection => @user.replies , :as => :reply %>
           </div>
           <div class="tab-pane fade" id="collection" role="tabpanel" aria-labelledby="collection-tab">
             <div class="row collection_head">
@@ -74,9 +70,7 @@
                 移除收藏
               </div>
             </div>
-            <% @user.love_posts.each do |post| %>
-              <%= render :partial => 'users/love_list', locals: { post: post } %>
-            <% end %>
+              <%= render :partial => 'users/love_list', :collection => @user.love_posts , :as => :post %>
           </div>
           <div class="tab-pane fade" id="draft" role="tabpanel" aria-labelledby="draft-tab">
             <table class="table">
@@ -91,38 +85,30 @@
                 </tr>
               </thead>
               <tbody>
-                <% @user.posts.draft.each do |post| %>
-                  <%= render :partial => 'users/post_list', locals: { post: post } %>
-                <% end %>
+                <%= render :partial => 'users/post_list', :collection => @user.not_published_post , :as => :post %>
               </tbody>
             </table>
           </div>
           <div class="tab-pane fade" id="myfriend" role="tabpanel" aria-labelledby="myfriend-tab">
             <h3>好友列表</h3>
-            <% if current_user == @user %>
-              <% if @user.waiting_response.present? %>
+            <% if is_self?(current_user) %>
+              <% if had_waiting_response? %>
                 <div class="waiting_response">
                   <h6>等待回覆</h6>
-                  <% @user.waiting_response.each do |friend| %>
-                    <%= render :partial => 'users/friend_list', locals: { friend: friend } %>
-                  <% end %>
+                  <%= render :partial => 'users/friend_list', :collection => @user.waiting_response , :as => :friend %>
                 </div>
               <% end %>
-              <% if @user.please_response.present? %>
+              <% if had_please_response? %>
                 <div class="please_response">
                   <h6>回覆</h6>
-                  <% @user.please_response.each do |friend| %>
-                    <%= render :partial => 'users/friend_list', locals: { friend: friend } %>
-                  <% end %>
+                  <%= render :partial => 'users/friend_list', :collection => @user.please_response,  :as => :friend %>
                 </div>
               <% end %>
             <% end %>
-            <% if @user.friended.present? %>
+            <% if had_friended? %>
               <div class="friended">
                 <h6>好友</h6>
-                <% @user.friended.each do |friend| %>
-                  <%= render :partial => 'users/friend_list', locals: { friend: friend } %>
-                <% end %>
+                <%= render :partial => 'users/friend_list', :collection => @user.friended,  :as => :friend %>
               </div>
             <% end %>
           </div>

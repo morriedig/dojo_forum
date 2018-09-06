@@ -10,7 +10,7 @@
 							全部
 					</a>
 			</li>
-			<% @post_categories.includes(:posts, :posts => [:user, :replies]).each do |post_category| %>
+			<% @post_categories.each do |post_category| %>
 					<li class="nav-item">
 					<a class="nav-link" id="post_category-<%= post_category.id %>-tab" data-toggle="tab" href="#posts<%= post_category.id %>" role="tab" aria-controls="post_category<%= post_category.id %>" aria-selected="false">
 							<%= post_category.title %>
@@ -22,15 +22,13 @@
 			<div class="tab-pane fade show active content-posts" id="all" role="tabpanel" aria-labelledby="post_category-all-tab">
 					<div class="mt-4 mb-4">
 						<div class="row">
-								<% @posts.each do |post| %>
-										<%= render :partial => "posts/post_list", locals: {post: post} %>
-								<% end %>
+							<%= render :partial => "posts/post_list", :collection => @posts, :as => :post %>
 						</div>
 						<%= paginate @posts, remote: true, theme: "Dojo" %>
 					</div>
 			</div>
 
-			<% @post_categories.includes(:posts, :join_posts).each do |post_category| %>
+			<% @post_categories.each do |post_category| %>
 				<div class="tab-pane fade content-posts" id="posts<%= post_category.id %>" role="tabpanel" aria-labelledby="post_category-<%= post_category.id %>-tab">
 						<div class="mt-4 mb-4">
 								<div class="row">
