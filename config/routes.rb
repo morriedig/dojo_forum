@@ -10,6 +10,12 @@ Rails.application.routes.draw do
     root "post_categories#index"
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :posts
+    end
+  end
+
   resources :posts do
     resources :replies, only: [:create, :update, :destroy]
   end
