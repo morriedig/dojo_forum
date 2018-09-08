@@ -14,10 +14,10 @@ RSpec.describe Api::V1::AuthController, type: :controller do
 
   it "logout succesfully" do
     user = create(:user)
-    token = user.authentication_token
-  
+    sign_in user
+    token = user.generate_authentication_token
     post "logout", params: { auth_token: user.authentication_token }
-  
+
     expect(response).to have_http_status(200)
     user.reload
     expect(user.authentication_token).not_to eq(token)

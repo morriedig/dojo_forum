@@ -98,11 +98,10 @@ class User < ApplicationRecord
       elsif self.friended.include?(friend)
         if self.friends.where(friendships: { friend_state: "friend" }).include?(friend)
           friend_ship = self.friendships.find_by( friend_id: friend.id )
-          friend_ship.destroy
         else
           friend_ship = friend.friendships.find_by( friend_id: self.id )
-          friend_ship.destroy
         end
+        friend_ship.destroy
       else
         return "你們的關係，太過複雜"
       end
