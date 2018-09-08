@@ -5,14 +5,8 @@ FactoryBot.define do
   end
 
   factory :user do
-    sequence(:email) { |n| "user#{n}@gmail.com" }
+    sequence(:email) { |n| "user#{n}@example.com" }
     password { "12345678" }
-  end
-
-  factory :admin do
-    sequence(:email) { |n| "user#{n}@gmail.com" }
-    password { "12345678" }
-    role { "admin" }
   end
 
   factory :post_category do
