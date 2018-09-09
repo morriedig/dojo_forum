@@ -3,8 +3,8 @@ class Post < ApplicationRecord
   # serialize :post_category_ids
   default_scope {order( created_at: :asc )}
   scope :most_viewed, -> { order( viewed_num: :desc ) }
-  scope :draft, -> { where( "post_state == 'draft'") }
-  scope :published, -> { where( "post_state == 'publish'") }
+  scope :draft, -> { where( :post_state => 'draft') }
+  scope :published, -> { where( :post_state => 'publish') }
   belongs_to :user, counter_cache: true
   has_many :replies, dependent: :destroy
   has_many :join_posts, dependent: :destroy

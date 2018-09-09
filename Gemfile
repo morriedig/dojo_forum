@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.4.4'
+ruby '2.4.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
@@ -61,8 +61,9 @@ end
 
 group :production do
   # gem "pg"
-  gem 'mysql2', '< 0.5'
+  # gem 'mysql2', '< 0.5'
 end
+gem 'mysql2', '< 0.5'
 
 group :test do
   # Adds support for Capybara system testing and selenium driver

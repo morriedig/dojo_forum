@@ -8,7 +8,7 @@ class PostsController < ApplicationController
       instance_variable_set("@post#{@post_category.id}", @post_category.posts.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(20) )
     else
       @post_categories.includes(:posts, :posts => [:user, :replies, :collection_posts]).each do | post_category |
-        instance_variable_set("@post#{post_category.id}",post_category.posts.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(20) )
+        instance_variable_set("@post#{post_category.id}",post_category.posts.published.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(20) )
       end
       @posts = Post.includes(:user, :post_categories , :replies).published.page(params[:page]).per(20)
     end

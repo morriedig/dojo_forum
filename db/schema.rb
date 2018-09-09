@@ -12,17 +12,17 @@
 
 ActiveRecord::Schema.define(version: 2018_09_06_094332) do
 
-  create_table "collection_posts", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "post_id"
+  create_table "collection_posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_collection_posts_on_post_id"
     t.index ["user_id"], name: "index_collection_posts_on_user_id"
   end
 
-  create_table "friendships", force: :cascade do |t|
-    t.integer "user_id"
+  create_table "friendships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
     t.integer "friend_id"
     t.string "friend_state"
     t.datetime "created_at", null: false
@@ -30,47 +30,49 @@ ActiveRecord::Schema.define(version: 2018_09_06_094332) do
     t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
-  create_table "join_posts", force: :cascade do |t|
-    t.integer "post_id"
-    t.integer "post_category_id"
+  create_table "join_posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "post_id"
+    t.bigint "post_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_category_id"], name: "index_join_posts_on_post_category_id"
     t.index ["post_id"], name: "index_join_posts_on_post_id"
   end
 
-  create_table "post_categories", force: :cascade do |t|
+  create_table "post_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "posts", force: :cascade do |t|
+  create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.text "image"
     t.string "post_state"
     t.integer "replies_count", default: 0
-    t.integer "user_id"
+    t.bigint "user_id"
+    t.bigint "post_category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "post_permission"
     t.text "post_category_ids"
     t.integer "viewed_num", default: 0
+    t.index ["post_category_id"], name: "index_posts_on_post_category_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "replies", force: :cascade do |t|
+  create_table "replies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content"
-    t.integer "post_id"
-    t.integer "user_id"
+    t.bigint "post_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_replies_on_post_id"
     t.index ["user_id"], name: "index_replies_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -94,4 +96,12 @@ ActiveRecord::Schema.define(version: 2018_09_06_094332) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "collection_posts", "posts"
+  add_foreign_key "collection_posts", "users"
+  add_foreign_key "friendships", "users"
+  add_foreign_key "join_posts", "post_categories"
+  add_foreign_key "join_posts", "posts"
+  add_foreign_key "posts", "users"
+  add_foreign_key "replies", "posts"
+  add_foreign_key "replies", "users"
 end
