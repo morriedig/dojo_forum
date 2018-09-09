@@ -1,4 +1,5 @@
 class CollectionPostsController < ApplicationController
+  before_action :authenticate_user!
 
   def create
     @collection_post = current_user.collection_posts.find_by(post_id: params[:post_id])
