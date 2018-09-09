@@ -1,6 +1,8 @@
 namespace :dev do
   task fake: :environment do
     User.destroy_all
+    User.create(email: "admin@example.com", password: "12345678", role: "admin", nickname: "Default Admin")
+    User.create(email: "morrie@example.com", password: "12345678", role: "admin", nickname: "Default Morrie")
     50.times do |i|
       name = FFaker::Name.first_name
       User.create!(email: "#{name}@example.com",
@@ -74,6 +76,21 @@ namespace :dev do
       end
     end
     puts "now you have #{Friendship.count} friend_ship data"
+  end
+
+  task fake: :environment do
+    CollectionPost.destroy_all
+    3000.times do |i|
+      user = User.all.pluck(:id).sample
+      post = Post.all.pluck(:id).sample
+      collection_post = CollectionPost.new(user_id: user,post_id: post)
+      if collection_post.is_uniq?
+        collection_post.save
+      else
+        next
+      end
+    end
+    puts "now you have #{CollectionPost.count} collection_post data"
   end
 
 end
