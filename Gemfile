@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+require "rubygems"
+gem "autoprefixer-rails"
+require "autoprefixer-rails"
 
 ruby '~> 2.4'
 
