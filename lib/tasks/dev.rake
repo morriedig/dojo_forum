@@ -40,7 +40,7 @@ namespace :dev do
   task fake: :environment do
     JoinPost.destroy_all
     1000.times do |i|
-      join_post = JoinPost.new(post_id: Post.all.pluck(:id).sample, post_category_id: PostCategory.all.pluck(:id).sample )
+      join_post = JoinPost.new(post_id: Post.published.pluck(:id).sample, post_category_id: PostCategory.all.pluck(:id).sample )
       if JoinPost.find_by(post_id: join_post.post_id, post_category_id: join_post.post_category_id)
         next
       else
@@ -54,7 +54,7 @@ namespace :dev do
     Reply.destroy_all
     2000.times do |i|
       Reply.create!(content: FFaker::BaconIpsum.sentence,
-        post_id: Post.all.pluck(:id).sample,
+        post_id: Post.published.pluck(:id).sample,
         user_id: User.all.pluck(:id).sample
         )
     end

@@ -3,19 +3,20 @@
     <h2>編輯</h2>
     <%= form_for @user do |f| %>
 
-      <div class="field">
+      <div class="form-group">
         <%= f.label :nickname, "暱稱" %><br />
-        <%= f.text_field :nickname %>
+        <%= f.text_field :nickname, class: "form-control" %>
       </div>
 
       <div class="field">
         <%= f.label :image, "照片" %><br />
-        <%= f.file_field :image %>
+        <%= f.file_field :image, class: "form-control-file" %>
+        <%= image_tag(@user.image.url, height: "200") if @user.image.present?%>
       </div>
 
       <div class="field">
         <%= f.label :intro, "介紹" %><br />
-        <%= f.text_area :intro, rows: "8" %>
+        <%= f.text_area :intro, rows: "8", class: "form-control" %>
       </div>
 
       <div class="actions">

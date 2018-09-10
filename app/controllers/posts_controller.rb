@@ -2,15 +2,15 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: :index
 
   def index
-    @post_categories = PostCategory.includes(:posts).where(:posts => { post_state: "publish" })
+    @post_categories = PostCategory.includes(:posts, :posts => [:user, :loved_users]).where(:posts => { post_state: "publish" })
     if params[:category_id]
       @post_category = PostCategory.includes(:posts => [:user] ).find(params[:category_id])
-      instance_variable_set("@post#{@post_category.id}", @post_category.posts.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(20) )
+      instance_variable_set("@post#{@post_category.id}", @post_category.posts.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(5) )
     else
-      @post_categories.includes(:posts, :posts => [:user, :replies, :collection_posts]).each do | post_category |
-        instance_variable_set("@post#{post_category.id}",post_category.posts.published.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(20) )
+      @post_categories.includes(:posts).each do | post_category |
+        instance_variable_set("@post#{post_category.id}",post_category.posts.published.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(5) )
       end
-      @posts = Post.includes(:user, :post_categories , :replies).published.page(params[:page]).per(20)
+      @posts = Post.includes(:user, :loved_users, :post_categories , :replies).published.page(params[:page]).per(5)
     end
   end
 

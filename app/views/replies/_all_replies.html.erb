@@ -1,1 +1,5 @@
-<%= render :partial => "replies/reply_list", :collection => replies, :as => :reply %>
+<% replies.each do |reply| %>
+  <li id= "reply_<%= reply.id %>" class="row">  
+    <%= render :partial => "replies/reply_list", :locals => { reply: reply } %>
+  </li>
+<% end %>

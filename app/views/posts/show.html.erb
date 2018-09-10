@@ -1,15 +1,32 @@
-<h1>this is post show page</h1>
+<div id="post_show">
+  <div>
+    <h3>
+      <%= @post.title %>
+      <%= self_post?(@post, current_user)%>
+    </h3>
+    <div class="post_image">
+  
+    </div>
+    <div class="content">
+      <%= simple_format @post.content%>
+    </div>
 
-<%= @post.inspect %>
-<%= @post.title %>
-<%= link_to "刪除", post_path(id:@post.id, show: true), method: :delete %>
-<%= form_for [@post, Reply.new], remote: true do |reply| %>
-  <%= reply.label :content %>
-  <%= reply.text_field :content %>
+    <div class="show_bot">
+      <ul id="all_replies">
+        <%= render :partial => "replies/all_replies", locals: { replies: @replies }%>
+      </ul>
+      <%= form_for [@post, Reply.new], remote: true do |reply| %>
+        <div class="form-group row">
+          <div class="col-5">
+            <%= reply.text_field :content, class: "form-control" %>          
+          </div>
+          <div class="col-1">
+            <%= reply.submit "留言", class: "btn btn-light" %>
+          </div>
+        </div>
+      <% end %>
+      <%= paginate @replies, remote: true %>
+    </div>
+  </div>
+</div>
 
-  <%= reply.submit %>
-<% end %>
-<ul id="all_replies">
-  <%= render :partial => "replies/all_replies", locals: { replies: @replies }%>
-</ul>
-<%= paginate @replies, remote: true %>

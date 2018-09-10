@@ -1,2 +1,2 @@
-$("#all_replies").append("<%=j render :partial => 'replies/reply_list', :locals => { reply: @reply } %>")
+$("#all_replies").prepend("<li id='reply_<%= @reply.id %>' class='row'><%=j render :partial => 'replies/reply_list', :locals => { reply: @reply } %></li>")
 $("#reply_content").val("");

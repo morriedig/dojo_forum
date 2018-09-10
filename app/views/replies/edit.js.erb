@@ -1,1 +1,2 @@
 $("#reply_content_<%= @reply.id %>").html("<%=j render :partial => 'replies/form', locals: { reply: @reply } %>")
+$("#reply_<%= @reply.id %>").html("<%=j render :partial => 'replies/form', locals: { reply: @reply } %>");

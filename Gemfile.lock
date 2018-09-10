@@ -331,7 +331,7 @@ DEPENDENCIES
   mini_magick
   mysql2 (< 0.5)
   puma (~> 3.11)
-  rails (~> 5.2.0)
+  rails (~> 5.2.1)
   rails-controller-testing
   rspec-rails (~> 3.7)
   sass-rails (~> 5.0)

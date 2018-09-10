@@ -1,1 +1,2 @@
 $("#reply_content_<%= @reply.id %>").html("<%= simple_format @reply.content %>")
+$("#reply_<%= @reply.id %>").html("<%=j render :partial => 'replies/reply_list', :locals => { reply: @reply } %>");

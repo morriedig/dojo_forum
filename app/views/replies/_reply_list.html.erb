@@ -1,5 +1,7 @@
-<li id= "reply_<%= reply.id %>">
-  <%= reply.content %>
-  <%= reply.inspect %>
+<div class="user_image col-1">
+  <%= image_tag( reply.user.image.url, height: "50") if reply.user.image.present? %>
+</div>
+<div class="user_reply col-9">
+  <%= reply.user.nickname %> : <%= reply.content %>
   <%= self_replied?(reply, current_user) %>
-</li>
+</div>

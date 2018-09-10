@@ -10,6 +10,8 @@ class Post < ApplicationRecord
   has_many :join_posts, dependent: :destroy
   has_many :post_categories, through: :join_posts
   has_many :collection_posts, dependent: :destroy
+  has_many :loved_users, through: :collection_posts, source: :user
+  
   # accepts_nested_attributes_for :post_categories
 
   # def categories_attributes=(category_attributes)
@@ -19,8 +21,10 @@ class Post < ApplicationRecord
   #   end
   # end
 
-  def collected?(user_id)
-    self.collection_posts.pluck(:user_id).include?(user_id) ? "取消收藏" : "收藏"
+  def collected?(user)
+    if user
+      self.loved_users.include?(user) ? "取消收藏" : "收藏"
+    end
   end
 
   def latest_reply

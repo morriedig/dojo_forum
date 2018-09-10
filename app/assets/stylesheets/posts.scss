@@ -6,8 +6,10 @@
   margin-top: 40px;
 
   .banner{
-    height: 300px;
-    background: #f8f8f8;
+    height: 400px;
+    background-image:asset_url("banner.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
   .body{
@@ -19,6 +21,13 @@
 
       .post_right{
         position: relative;
+
+        .post_right_content{
+          a {
+            display: block;
+            text-align: right;
+          }
+        }
 
         .post_right_bot{
           position: absolute;
@@ -35,5 +44,50 @@
   .body{
     width: 1024px;
     margin:0 auto;
+  }
+}
+
+#post_show{
+  margin-top: 60px;
+
+  > div{
+    width: 1024px;
+    margin: 30px auto;
+
+    h3{
+
+      a{
+        color: #c5c5c5;
+        font-size: 0.7em;
+
+        &:hover{
+          text-decoration: none;
+        }
+      }
+    }
+
+    .show_bot{
+
+      #all_replies{
+        list-style: none;
+
+        li{
+          margin-bottom: 10px;
+
+          a{
+            font-size: 0.7em;
+            color: #c5c5c5;
+
+            &:hover{
+              text-decoration: none;
+            }
+          }
+
+          form{
+            width: 80%;
+          }
+        }
+      }
+    }
   }
 }
