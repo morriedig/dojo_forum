@@ -1,1 +1,3 @@
-$("#post_category_<%= @post_category.id%>").remove();
+<% if !PostCategory.find_by(id: @post_category.id).present? %>
+  $("#post_category_<%= @post_category.id%>").remove();
+<% end %>

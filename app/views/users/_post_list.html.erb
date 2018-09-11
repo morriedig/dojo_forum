@@ -1,5 +1,5 @@
 <tr>
-  <th scope="row"><%= post.title %></th>
+  <th scope="row"><%= link_to post.title, post_path(post) %></th>
   <td><%= post.post_state %></td>
   <td><%= post.replies_count %></td>
   <td><%= post.viewed_num %></td>

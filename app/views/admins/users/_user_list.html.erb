@@ -1,13 +1,7 @@
-<th scope="col"><%= link_to user.id, admins_user_path(user) %></th>
+<%#= link_to user.nickname, admins_user_path(user) %>
 <th scope="col"><%= user.nickname %></th>
 <th scope="col"><%= user.email %></th>
 <th scope="col"><%= user.role %></th>
 <th scope="col">
-  <%= link_to admins_change_role_path(id: user.id), method: :post, remote: true do %>
-  <% if user.admin? %>
-    移除管理員權限
-  <% else %>
-    加入管理員
-  <% end %>
-<% end %>
+  <%= link_to change_role(user),admins_change_role_path(id: user.id), method: :post, remote: true %>
 </th>

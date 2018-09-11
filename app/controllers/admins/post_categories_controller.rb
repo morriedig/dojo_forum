@@ -15,7 +15,10 @@ class Admins::PostCategoriesController < ApplicationController
 
   def destroy
     find_post_category
-    @post_category.destroy
+    if @post_category.destroy
+    else
+      flash.now[:notice] = "請勿刪除"
+    end
   end
 
   private

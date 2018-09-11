@@ -1,10 +1,12 @@
 class Post < ApplicationRecord
   mount_uploader :image, PostUploader
   # serialize :post_category_ids
-  default_scope {order( created_at: :asc )}
+  default_scope {order( id: :asc )}
   scope :most_viewed, -> { order( viewed_num: :desc ) }
   scope :draft, -> { where( :post_state => 'draft') }
   scope :published, -> { where( :post_state => 'publish') }
+  scope :latest_reply, -> { includes(:replies).order("replies.created_at desc") }
+  scope :most_reply, -> { order(replies_count: :desc) }
   belongs_to :user, counter_cache: true
   has_many :replies, dependent: :destroy
   has_many :join_posts, dependent: :destroy

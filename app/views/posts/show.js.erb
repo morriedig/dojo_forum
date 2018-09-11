@@ -1,2 +1,2 @@
 $("#all_replies").html("<%=j render :partial => 'replies/all_replies', locals: { replies: @replies } %>")
-$('.pagination').html('<%= escape_javascript(paginate(@replies, :remote=>true).to_s)%>');
+$('.pagination').html('<%= escape_javascript(paginate(@replies, theme: "Dojo", :remote=>true).to_s)%>');

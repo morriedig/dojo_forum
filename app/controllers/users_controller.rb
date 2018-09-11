@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes(:love_posts, :posts, :replies, :collection_posts, :replies => [:post]).find(params[:id])
+    @user = User.includes(:love_posts, :posts, :replies, :collection_posts, :collection_posts => [:user] , :replies => [:post], :posts => [:loved_users]).find(params[:id])
   end
 
   def edit
@@ -19,13 +19,18 @@ class UsersController < ApplicationController
     
     redirect_to user_path(@user)
   end
-  
 
   def friend_ship
     # 找出user
     @friend = User.find(params[:id])
     current_user.update_ship(@friend)
     current_user.reload
+  end
+
+  def remove_friendship
+    @friend = User.find(params[:id])
+    friendship = @friend.friendships.find_by(friend_id: current_user.id)
+    friendship.destroy
   end
 
   private

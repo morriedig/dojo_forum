@@ -93,7 +93,7 @@ class User < ApplicationRecord
         friend_ship.destroy
       elsif self.please_response.include?(friend)
         friend_ship = friend.friendships.find_by( friend_id: self.id )
-        friend_shipfriend_state = "friend"
+        friend_ship.friend_state = "friend"
         friend_ship.save
       elsif self.friended.include?(friend)
         if self.friends.where(friendships: { friend_state: "friend" }).include?(friend)

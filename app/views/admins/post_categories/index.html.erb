@@ -1,4 +1,7 @@
 <div class="backend container">
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, class: name %>
+  <% end %>
   <h1>後台管理</h1>
   <div class="content">
     <div class="all_category">
@@ -31,7 +34,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">編號</th>
+            <%# <th scope="col">編號</th> %>
             <th scope="col">使用者暱稱</th>
             <th scope="col">信箱</th>
             <th scope="col">權限</th>

@@ -1,1 +1,2 @@
-$("#friend_<%= @friend.id %>").html("<%= current_user.friend?(@friend) %>");
+$(".top #friend_<%= @friend.id %>").html("<%= current_user.friend?(@friend) %>");
+$(".content #friend_<%= @friend.id %>").remove();
