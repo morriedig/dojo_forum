@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :post do
-    title { "this is post" }
-    content { "okkok?" }
+    sequence(:title) { |n| "title#{n}"}
+    sequence(:content) { |n| "content#{n}"}
   end
 
   factory :user do
