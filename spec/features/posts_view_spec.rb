@@ -1,5 +1,6 @@
-require 'rails_helper.rb'
- 
+require 'rails_helper'
+# require 'rails_helper.rb'
+
 feature "if user didn't login he can " do  
 
   scenario " view all publish post " do
@@ -17,6 +18,19 @@ feature "if user didn't login he can " do
     visit '/posts'
     posts.each do |post|
       expect(page).not_to have_content(post.title)
+    end
+  end
+end
+
+feature "if user login in he can" do
+  let(:user){ create(:user) }
+  # before { sign_in user }
+  scenario "he can see all post, too" do
+    posts = create_list(:post, 5 , user: user, post_state: "publish")
+    # sign_in user 
+    visit '/posts'
+    posts.each do |post|
+      expect(page).to have_content(post.title)
     end
   end
 end

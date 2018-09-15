@@ -1,6 +1,6 @@
-class Admins::PostCategoriesController < ApplicationController
+class Admins::PostCategoriesController < Admins::AdminController
   # 這邊需要讓全部後台共用，之後可改寫
-  before_action :authenticate_user!
+  
 
   def index
     @post_categories = PostCategory.all

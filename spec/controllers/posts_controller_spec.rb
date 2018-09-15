@@ -1,6 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe PostsController, :type => :controller do
+  describe "if user didn't login " do
+    context "he can" do
+      it 'get the post_index page' do
+        get :index
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context "he can't " do
+      it "get another page expect signup" do
+        get :new
+        expect(response).to have_http_status(302)
+      end
+    end
+
+    it " he will be redirect to sign_in_page" do
+      user = create(:user)
+      post = create(:post, user: user )
+      get :show, params: { id: post.id }
+      expect(response).to have_http_status(302)
+    end
+  end
+
   describe "GET #index" do
     context "admin can " do
       let(:user){create(:user)}
