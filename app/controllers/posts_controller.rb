@@ -5,12 +5,29 @@ class PostsController < ApplicationController
     @post_categories = PostCategory.includes(:posts, :posts => [:user, :loved_users]).where(:posts => { post_state: "publish" })
     if params[:category_id]
       @post_category = PostCategory.includes(:posts => [:user] ).find(params[:category_id])
-      instance_variable_set("@post#{@post_category.id}", @post_category.posts.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(5) )
-    else
-      @post_categories.includes(:posts).each do | post_category |
-        instance_variable_set("@post#{post_category.id}",post_category.posts.published.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(5) )
+      if params[:sort] == "most_reply"
+        instance_variable_set("@post#{@post_category.id}", @post_category.posts.most_reply.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(5) )
       end
-      @posts = Post.includes(:user, :loved_users, :post_categories , :replies).published.page(params[:page]).per(5)
+      if params[:sort] == "latest_reply"
+        instance_variable_set("@post#{@post_category.id}", @post_category.posts.latest_reply.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(5) )
+      end
+    else
+      if params[:sort] == "most_reply"
+        @post_categories.includes(:posts).each do | post_category |
+          instance_variable_set("@post#{post_category.id}",post_category.posts.most_reply.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(5) )
+        end
+        @posts = Post.includes(:user, :loved_users ,:replies).most_reply.page(params[:page]).per(5)
+      elsif params[:sort] == "latest_reply"
+        @post_categories.includes(:posts).each do | post_category |
+          instance_variable_set("@post#{post_category.id}",post_category.posts.published.latest_reply.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(5) )
+        end
+        @posts = Post.includes(:user, :loved_users , :replies).published.latest_reply.page(params[:page]).per(5)
+      else
+        @post_categories.includes(:posts).each do | post_category |
+          instance_variable_set("@post#{post_category.id}",post_category.posts.published.includes(:user, :replies, :post_categories, :collection_posts).page(params[:page]).per(5) )
+        end
+        @posts = Post.includes(:user, :loved_users , :replies).published.page(params[:page]).per(5)
+      end
     end
   end
 
