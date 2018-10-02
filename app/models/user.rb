@@ -3,6 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  
+  validates :email, uniqueness: true
 
   has_many :posts, dependent: :destroy
   has_many :replies, dependent: :destroy
@@ -89,17 +91,17 @@ class User < ApplicationRecord
     if self.all_friends.include?(friend)
       # 如果 self 是在等待回應
       if self.waiting_response.include?(friend)
-        friend_ship = self.friendships.find_by( friend_id: friend.id )
+        friend_ships = self.friendships.find_by_friend_id( friend.id )
         friend_ship.destroy
       elsif self.please_response.include?(friend)
-        friend_ship = friend.friendships.find_by( friend_id: self.id )
+        friend_ship = friend.friendships.find_by_friend_id( self.id )
         friend_ship.friend_state = "friend"
         friend_ship.save
       elsif self.friended.include?(friend)
         if self.friends.where(friendships: { friend_state: "friend" }).include?(friend)
-          friend_ship = self.friendships.find_by( friend_id: friend.id )
+          friend_ship = self.friendships.find_by_friend_id( friend.id )
         else
-          friend_ship = friend.friendships.find_by( friend_id: self.id )
+          friend_ship = friend.friendships.find_by_friend_id( self.id )
         end
         friend_ship.destroy
       else
