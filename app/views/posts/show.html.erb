@@ -3,6 +3,8 @@
     <h3>
       <%= @post.title %>
       <%= self_post?(@post, current_user)%>
+      <%= admin?(@post, current_user)%>
+      <span> 留言數： <%= @post.replies_count %></span>
     </h3>
     <div class="post_image">
   
