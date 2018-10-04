@@ -2,11 +2,11 @@ class Post < ApplicationRecord
   mount_uploader :image, PostUploader
   # serialize :post_category_ids
   default_scope {order( id: :asc )}
-  scope :most_viewed, -> { published.reorder( viewed_num: :desc ) }
   scope :draft, -> { where( :post_state => 'draft') }
   scope :published, -> { where( :post_state => 'publish') }
-  scope :latest_reply, -> { published.includes(:replies).reorder("replies.created_at desc") }
-  scope :most_reply, -> { published.reorder(replies_count: :desc) }
+  scope :order_latest_reply, -> { published.joins(:replies).reorder('replies.created_at DESC') }
+  scope :order_most_reply, -> { published.reorder(replies_count: :desc) }
+  scope :order_most_viewed, -> { published.reorder( viewed_num: :desc ) }
   belongs_to :user, counter_cache: true
   has_many :replies, dependent: :destroy
   has_many :join_posts, dependent: :destroy
@@ -30,7 +30,7 @@ class Post < ApplicationRecord
   end
 
   def latest_reply
-    self.replies.present? ? self.replies.last.created_at.strftime("%Y-%m-%m") : "尚無留言"
+    self.replies.present? ? self.replies.first.created_at.strftime("%Y-%m-%d") : "尚無留言"
   end
 
   def add_viewed
