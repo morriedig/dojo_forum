@@ -1,7 +1,9 @@
 <%#= link_to user.nickname, admins_user_path(user) %>
 <th scope="col"><%= user.nickname %></th>
 <th scope="col"><%= user.email %></th>
-<th scope="col"><%= user.role %></th>
+<th scope="col"><%= image_tag(user.image.thumb.url) if user.image.present? %></th>
+<th scope="col"><%= simple_format user.intro %></th>
 <th scope="col">
+  <%= user.role %>
   <%= link_to change_role(user),admins_change_role_path(id: user.id), method: :post, remote: true %>
 </th>
