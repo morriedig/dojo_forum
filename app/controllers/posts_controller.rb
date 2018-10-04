@@ -69,6 +69,14 @@ class PostsController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def feed
+    @user_num = User.size
+    @post_num = Post.size
+    @reply_num = Reply.size
+    @hot_post = Post.order_most_reply.limit(10)
+    @hot_user = User.hot_user.limit(10)
+  end
   
   private
 

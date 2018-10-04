@@ -19,6 +19,7 @@
         <nav>
           <ul>
             <% if current_user %>
+              <li><%= link_to('Feeds', feed_path) %></li>
               <li><%= link_to current_user.email.split("@").first, user_path(current_user) %></li>
               <li><%= link_to "新增貼文", new_post_path%></li>
               <li><%= link_to('登出', destroy_user_session_path, method: :delete) %></li>

@@ -4,4 +4,8 @@ class ApplicationRecord < ActiveRecord::Base
   def own?(user)
     self.user_id == user.id
   end
+
+  def self.size
+    all.size
+  end
 end

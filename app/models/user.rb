@@ -6,6 +6,7 @@ class User < ApplicationRecord
   
   validates :email, uniqueness: true
 
+  scope :hot_user, -> { order(replies_count: :desc) }
   has_many :posts, dependent: :destroy
   has_many :replies, dependent: :destroy
   has_many :collection_posts, dependent: :destroy

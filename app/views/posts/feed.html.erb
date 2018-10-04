@@ -1,0 +1,37 @@
+<div id="feed">
+  <div class="container-fluid">
+    <h1>全站快訊</h1>
+
+    <div class="content">
+      <div class="inform">
+        <p>
+          <%= @user_num %>
+          <%= @post_num %>
+          <%= @reply_num %>
+        </p>
+      </div>
+      
+      <div class="hot_post">
+        <h3>最熱門的文章</h3>
+        <%= render partial: "posts/post_list", :collection =>  @hot_post, :as => :post %>
+      </div>
+
+      <div class="hot_user">
+        <h3>聲量最大的使用者</h3>
+        <% @hot_user.each do |user| %>
+          <div id="user_<%= user.id %>" class="user_list">
+            <img src="" style="background-image: url('<%= asset_path(user.image.thumb.url) if user.image.present? %>')" alt="">
+            <p>
+              <%= link_to user.nickname, user_path(user) %>  
+            </p>
+            <p>
+              <%= respond_relation(user, current_user) %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    
+  </div>
+  
+</div>
