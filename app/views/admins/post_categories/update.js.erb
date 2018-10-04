@@ -1,0 +1,2 @@
+$("#post_category_<%= @post_category.id %> .name").html("<%= @post_category.title %>");
+$("#post_category_<%= @post_category.id %> .edit_link").html('<a data-remote="true" href="/admins/post_categories/<%=  @post_category.id %>/edit">編輯</a>')

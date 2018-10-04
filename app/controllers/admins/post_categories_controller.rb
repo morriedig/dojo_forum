@@ -13,9 +13,18 @@ class Admins::PostCategoriesController < Admins::AdminController
     # 之後要寫判斷失敗的狀況
   end
 
+  def update
+    find_post_category
+    @post_category.update(title: params[:title])
+  end
+
+  def edit
+    find_post_category
+  end
+
   def destroy
     find_post_category
-    if @post_category.destroy
+    if @post_category&.destroy
     else
       flash.now[:notice] = "請勿刪除"
     end

@@ -1,0 +1,12 @@
+if ( $("#cate_title").length === 0 ) {
+  $("#post_category_<%= @post_category.id %> .name").html("<input id='cate_title' value='<%= @post_category.title %>'></input>");
+  $("#post_category_<%= @post_category.id %> .edit_link").html('<a data-remote="true" href="/admins/post_categories/13" data-method="PUT">更新</a>')
+
+  $("#cate_title").change(function(){
+    var parent_id = $("#cate_title").parent().parent().attr("id").split("_")[2];
+    console.log("-------")
+    $("#post_category_<%= @post_category.id %> a").attr("href","/admins/post_categories/" + parent_id + "?title=" + $("#cate_title").val() )
+  })
+} else{
+  alert("一次只能更新一個！！！")
+}
