@@ -1,1 +1,5 @@
-$("#post_<%= @post.id%>").remove();
+if ( $("#post_<%= @post.id%>").length === 0 ) {
+  window.location.pathname = "/"
+} else{
+  $("#post_<%= @post.id%>").remove();
+}
