@@ -8,5 +8,11 @@ module PostsHelper
       link_to(post.collected?(current_user), collection_posts_path(post_id: post.id), method: :post, remote: true, id: "collection_post_#{post.id}")
     end  
   end
+
+  def admin?(post, user)
+    if post.user_id != user.try(:id) && user.try(:role) === "admin"
+      link_to("刪除文章", post_path(post), method: :delete, remote: true)
+    end
+  end
   
 end

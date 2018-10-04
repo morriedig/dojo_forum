@@ -7,6 +7,7 @@
     <div class="post_right_top">
       <%= post.title %> - <%= link_to post.user.nickname, user_path(post.user) %>
         <%= self_post?(post, current_user) %>
+        <%= admin?(post, current_user)%>
     </div>
     <div class="post_right_content">
       <%= simple_format post.content %>
