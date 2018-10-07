@@ -1,2 +1,4 @@
 $(".top #friend_<%= @friend.id %>").html("<%= current_user.friend?(@friend) %>");
 $(".content #friend_<%= @friend.id %>").remove();
+
+$(".hot_user #user_<%= @friend.id %> .relation").html("<%=j respond_relation(@friend, current_user) %>");

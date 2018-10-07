@@ -6,7 +6,6 @@ Rails.application.routes.draw do
     resources :post_categories
     resources :users, only: [:index, :show]
     post "change_role", to: "users#change_role"
-
     root "post_categories#index"
   end
 
@@ -29,5 +28,6 @@ Rails.application.routes.draw do
   post "friend_ship", to: "users#friend_ship"
   post "remove_friendship" => "users#remove_friendship"
 
+  get "feed", to: "posts#feed"
   root "posts#index"
 end

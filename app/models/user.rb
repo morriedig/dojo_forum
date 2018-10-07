@@ -92,7 +92,7 @@ class User < ApplicationRecord
     if self.all_friends.include?(friend)
       # 如果 self 是在等待回應
       if self.waiting_response.include?(friend)
-        friend_ships = self.friendships.find_by_friend_id( friend.id )
+        friend_ship = self.friendships.find_by_friend_id( friend.id )
         friend_ship.destroy
       elsif self.please_response.include?(friend)
         friend_ship = friend.friendships.find_by_friend_id( self.id )

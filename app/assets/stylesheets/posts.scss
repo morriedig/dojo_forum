@@ -95,3 +95,37 @@
     }
   }
 }
+
+#feed{
+  margin-top: 40px;
+
+  .content{
+
+    .inform{
+      font-size: 1.3em;
+
+      div{
+        margin-top: 15px;
+      }
+    }
+
+    .hot_post, .hot_user {
+      margin-top: 20px;
+
+      h3{
+        margin-bottom: 20px;
+      }
+    }
+
+    .hot_user{
+      .user_list{
+        img{
+          display: block;
+          width:150px;
+          height: 150px;
+          background-size: contain;
+        }
+      }
+    }
+  }
+}

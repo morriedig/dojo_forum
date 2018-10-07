@@ -1,14 +1,24 @@
 <div id="feed">
-  <div class="container-fluid">
+  <div class="container">
     <h1>全站快訊</h1>
 
     <div class="content">
-      <div class="inform">
-        <p>
-          <%= @user_num %>
-          <%= @post_num %>
-          <%= @reply_num %>
-        </p>
+      <div class="inform row">
+        <div class="offset-1 col-3">
+          <p>
+            全站使用人數： <strong><%= @user_num %></strong> 
+          </p>
+        </div>
+        <div class="col-3">
+          <p>
+            全站貼文數：<strong><%= @post_num %></strong>
+          </p>
+        </div>
+        <div class="col-3">
+          <p>
+            全站回文數： <strong><%= @reply_num %></strong>
+          </p>
+        </div>
       </div>
       
       <div class="hot_post">
@@ -18,17 +28,20 @@
 
       <div class="hot_user">
         <h3>聲量最大的使用者</h3>
-        <% @hot_user.each do |user| %>
-          <div id="user_<%= user.id %>" class="user_list">
-            <img src="" style="background-image: url('<%= asset_path(user.image.thumb.url) if user.image.present? %>')" alt="">
-            <p>
-              <%= link_to user.nickname, user_path(user) %>  
-            </p>
-            <p>
-              <%= respond_relation(user, current_user) %>
-            </p>
-          </div>
-        <% end %>
+        <div class="row">
+          <% @hot_user.each do |user| %>
+            <div id="user_<%= user.id %>" class="user_list col-3">
+              <img src="" style="background-image: url('<%= user.image.thumb.url if user.image.present? %>')" alt="">
+              <p>
+                <%= link_to user.nickname, user_path(user) %>
+                <%= user.replies_count %>
+              </p>
+              <p class="relation">
+                <%= respond_relation(user, current_user) %>
+              </p>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
     
