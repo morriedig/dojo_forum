@@ -5,7 +5,7 @@ namespace :dev do
     User.create(email: "morrie@example.com", password: "12345678", role: "admin", nickname: "Default Morrie")
     50.times do |i|
       name = FFaker::Name.first_name
-      User.create!(email: "#{name}@example.com",
+      User.create(email: "#{name}@example.com",
         password: "12345678",
         nickname: name,
         intro: FFaker::Tweet.body,
@@ -23,7 +23,8 @@ namespace :dev do
         image: FFaker::Image.url,
         post_state: ["publish", "draft"].sample,
         user_id: User.all.pluck(:id).sample,
-        post_permission: [1,2,3].sample
+        post_permission: [1,2,3].sample,
+        viewed_num: Random.rand(100)
       )
     end
     puts "now you have #{Post.count} posts data"
