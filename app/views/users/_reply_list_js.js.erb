@@ -6,13 +6,11 @@
     <div id="reply_content_<%= reply.id %>" class="reply_content col-5">
       <%= simple_format reply.content %>
     </div>
-    <% if is_self?(current_user) %>
       <div class="reply_link col-6">
         <p>
           <span> <%= link_to "編輯", edit_reply_path( id:reply.id ), remote: true %> </span>
           <span> <%= link_to "刪除", post_reply_path( post_id: reply.post.id, id:reply.id ), method: :delete, remote: true %> </span>
         </p>
       </div>
-    <% end %>
   </div> 
 </div>

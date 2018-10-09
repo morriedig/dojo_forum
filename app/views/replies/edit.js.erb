@@ -1,2 +1,4 @@
-$("#reply_content_<%= @reply.id %>").html("<%=j render :partial => 'replies/form', locals: { reply: @reply } %>")
-$("#reply_<%= @reply.id %>").html("<%=j render :partial => 'replies/form', locals: { reply: @reply } %>");
+$("#all_replies #reply_content_<%= @reply.id %>").html("<%=j render :partial => 'replies/form', locals: { reply: @reply } %>")
+$("#all_replies #reply_<%= @reply.id %>").html("<%=j render :partial => 'replies/form', locals: { reply: @reply } %>");
+
+$("#reply #reply_content_<%= @reply.id %>").parent().html("<%=j render :partial => 'replies/form', locals: { reply: @reply } %>");
