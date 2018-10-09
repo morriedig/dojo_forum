@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    namespace :v1 do
+    namespace :v1, defaults: {format: :json} do
       resources :posts
       post "login" => "auth#login"
       post "logout" => "auth#logout"
