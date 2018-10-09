@@ -2,7 +2,8 @@
     <div class="body">
       <div class="top row">
         <div class="top_right col-2 offset-md-1">
-          <img src="" style="background-image: url(<%= @user.image.thumb.url if @user.image.present? %>); background-size: cover; background-position: center center;" alt="">
+          <img src="" style="background-image: url(<%= @user.image.thumb.url || asset_path("defalut.jpg") %>); background-size: cover; background-position: center center;" alt="">
+
           <%#= image_tag( @user.image.thumb.url, height: "200" ) if @user.image.present? %>
           <p><%= @user.nickname %></p>
         </div>
@@ -51,7 +52,9 @@
                   <th scope="col">留言數</th>
                   <th scope="col">瀏覽數</th>
                   <th scope="col">建立時間</th>
-                  <th scope="col">操作</th>
+                  <% if is_self?(current_user)%>
+                    <th scope="col">操作</th>
+                  <% end %>
                 </tr>
               </thead>
               <tbody>
