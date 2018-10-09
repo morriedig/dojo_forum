@@ -68,6 +68,24 @@ class User < ApplicationRecord
     friend.friendships.pluck(:friend_id).include?(self.id)
   end
 
+  def get_old_state(friend)
+    if self.all_friends.include?(friend)
+      # 如果 self 是在等待回應
+      if self.waiting_response.include?(friend)
+        return "waiting"
+      elsif self.please_response.include?(friend)
+        return "response"
+      elsif self.friended.include?(friend)
+        return "friend"
+      else
+        return false
+      end
+    else
+      # 如果還沒有成為朋友
+      return false
+    end
+  end
+
   def friend?(friend)
     # puts self.add_friend?(friend)
     if self.all_friends.include?(friend)

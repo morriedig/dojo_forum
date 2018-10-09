@@ -1,0 +1,9 @@
+<div id="friend_<%= friend.id %>" class="friend_list">
+  <img src="" style="background-image: url('<%= asset_path(friend.image.thumb.url) if friend.image.present? %>')" alt="">
+  <p>
+    <%= link_to friend.nickname, user_path(friend) %>  
+  </p>
+    <p>
+        <%= respond_relation(friend, current_user) %>
+    </p>
+</div>

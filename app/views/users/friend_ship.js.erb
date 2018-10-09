@@ -1,4 +1,17 @@
 $(".top #friend_<%= @friend.id %>").html("<%= current_user.friend?(@friend) %>");
-$(".content #friend_<%= @friend.id %>").remove();
+<% case @old_state %>
+<% when "waiting" %>
+    console.log("1111")
+    $(".waiting_response #friend_<%= @friend.id %>").remove();
+    console.log("----")
+<% when "response" %>
+    $(".please_response #friend_<%= @friend.id%>").remove();
+    <% if current_user.all_friends.include?(@friend) %>
+        $(".friended").append("<%=j render :partial => 'users/friend_list_js', :locals => { :friend => @friend } %>")
+    <% end %>
+<% when "friend" %>
+    $(".friended #friend_<%= @friend.id%>").remove();
+<% end %>
 
+$(".hot_user #friend_<%= @friend.id %> btn").html("<%=j respond_relation(@friend, current_user) %>");
 $(".hot_user #user_<%= @friend.id %> .relation").html("<%=j respond_relation(@friend, current_user) %>");

@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   def friend_ship
     # 找出user
     @friend = User.find(params[:id])
+    @old_state = current_user.get_old_state(@friend)
     current_user.update_ship(@friend)
     current_user.reload
   end
