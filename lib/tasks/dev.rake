@@ -3,13 +3,14 @@ namespace :dev do
     User.destroy_all
     User.create(email: "admin@example.com", password: "12345678", role: "admin", nickname: "Default Admin")
     User.create(email: "morrie@example.com", password: "12345678", role: "admin", nickname: "Default Morrie")
-    50.times do |i|
+    20.times do |i|
       name = FFaker::Name.first_name
-      User.create(email: "#{name}@example.com",
+      file = File.open("#{Rails.root}/public/avatar/user#{i+1}.jpg")
+      User.create!(email: "#{name}@example.com",
         password: "12345678",
-        nickname: name,
+        nickname: name ,
         intro: FFaker::Tweet.body,
-        image: FFaker::Image.url
+        image: file
       )
     end
     puts "now you have #{User.count} users data"
