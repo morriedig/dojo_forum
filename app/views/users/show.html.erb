@@ -2,7 +2,7 @@
     <div class="body">
       <div class="top row">
         <div class="top_right col-2 offset-md-1">
-          <img src="" style="background-image: url(<%= @user.image.thumb.url || asset_path("defalut.jpg") %>); background-size: cover; background-position: center center;" alt="">
+          <img src="" style="background-image: url(<%= @user.image.thumb.url || asset_url("defalut.jpg") %>); background-size: cover; background-position: center center;" alt="">
 
           <%#= image_tag( @user.image.thumb.url, height: "200" ) if @user.image.present? %>
           <p><%= @user.nickname %></p>
